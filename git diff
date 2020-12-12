@@ -1,0 +1,218 @@
+[1mdiff --git a/binarysearchtree.java b/binarysearchtree.java[m
+[1mindex 8c52a4e..7b76614 100644[m
+[1m--- a/binarysearchtree.java[m
+[1m+++ b/binarysearchtree.java[m
+[36m@@ -1,5 +1,5 @@[m
+[31m-import java.util.LinkedList;[m
+[31m-import java.util.Queue;[m
+[32m+[m
+[32m+[m[32mimport java.util.*;[m
+ [m
+ [m
+ public class binarysearchtree {[m
+[36m@@ -169,8 +169,40 @@[m [mpublic class binarysearchtree {[m
+         System.out.println("Maximum in  tree is"+max);[m
+         System.out.println("Minimum in tree is"+min);[m
+     }[m
+[31m-   [m
+[31m-   public void findarray(Node root)[m
+[32m+[m[32m    public void inorder(Node root)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if(root==null)[m
+[32m+[m[32m        return;[m[41m [m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            inorder(root.left);[m
+[32m+[m[32m            System.out.print(root.data+" ");[m
+[32m+[m[32m            inorder(root.right);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void preorder(Node root)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if(root==null)[m
+[32m+[m[32m        return;[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            System.out.print(root.data+" ");[m
+[32m+[m[32m            preorder(root.left);[m
+[32m+[m[32m            preorder(root.right);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void postorder(Node root)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if(root==null)[m
+[32m+[m[32m        return;[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            postorder(root.left);[m
+[32m+[m[32m            postorder(root.right);[m
+[32m+[m[32m            System.out.print(root.data+" ");[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void findarray(Node root)[m
+    {[m
+        if(root==null)[m
+        return;[m
+[36m@@ -193,11 +225,60 @@[m [mpublic class binarysearchtree {[m
+         findallpaths(root.right,arr,index+1);[m
+        [m
+     }[m
+[32m+[m[41m    [m
+[32m+[m[32m    public boolean isbst(Node root)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if(root==null)[m
+[32m+[m[32m       return false;[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Stack<Node> s=new Stack<Node>();[m
+[32m+[m[32m            s.push(root);[m
+[32m+[m[32m            Node temp=root;[m
+[32m+[m[32m            while(s.isEmpty()==false)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                if(temp.left==null&&temp.right==null)[m
+[32m+[m[32m                break;[m
+[32m+[m[32m                else if(temp.left!=null&&temp.right==null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    if(temp.data>temp.left.data)[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        temp=temp.left;[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    else[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        return false;[m
+[32m+[m[41m                        [m
+[32m+[m[32m                    }[m
+[32m+[m[32m                }[m
+[32m+[m[32m                else if(temp.right!=null&&temp.left==null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    if(temp.right.data>temp.data)[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        temp=temp.right;[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    else[m
+[32m+[m[32m                    return false;[m
+[32m+[m[32m                }[m
+[32m+[m[32m                else if(temp.right!=null&temp.left!=null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    if(temp.right.data>temp.data&&temp.left.data<temp.data)[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        s.push(temp.right);[m
+[32m+[m[32m                        temp=temp.left;[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    else[m
+[32m+[m[32m                    return false;[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m            return true;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+     public static void main(String args[])[m
+     {[m
+         binarysearchtree bs=new binarysearchtree();[m
+         root=new Node(100);[m
+[31m-        root.left=new Node(20);[m
+[32m+[m[32m        root.left=new Node(200);[m
+         root.right=new Node(500);[m
+         bs.insert(root,1);[m
+         bs.insert(root,0);[m
+[36m@@ -209,6 +290,13 @@[m [mpublic class binarysearchtree {[m
+         bs.levelordertraversal(root);[m
+         bs.minimummaximum(root);[m
+         System.out.println();[m
+[32m+[m[32m        bs.postorder(root);[m
+[32m+[m[32m        System.out.println();[m
+[32m+[m[32m        bs.preorder(root);[m
+[32m+[m[32m        System.out.println();[m
+[32m+[m[32m        bs.inorder(root);[m
+[32m+[m[32m        System.out.println(bs.isbst(root));[m
+[32m+[m[41m        [m
+         [m
+     }[m
+ }[m
+[1mdiff --git a/inordersuccpress.java b/inordersuccpress.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a8e8adb[m
+[1m--- /dev/null[m
+[1m+++ b/inordersuccpress.java[m
+[36m@@ -0,0 +1,80 @@[m
+[32m+[m[32mimport java.util.*;[m
+[32m+[m[32mpublic class inordersuccpress[m
+[32m+[m[32m{[m
+[32m+[m[32m    static int a[]=new int[100];[m
+[32m+[m[32m    static Node root;[m
+[32m+[m[32m    public void inorder(Node root)[m
+[32m+[m[32m    {[m
+[32m+[m[41m    [m
+[32m+[m[41m        [m
+[32m+[m[32m        if(root==null)[m
+[32m+[m[32m        {[m
+[32m+[m[32m         System.out.println("Tree doesnt exist");[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Stack<Node> s=new Stack<Node>();[m
+[32m+[m[32m            Node temp=root;[m
+[32m+[m[32m            s.push(temp);[m
+[32m+[m[32m            int count=0;[m
+[32m+[m[32m            while(s.isEmpty()==false)[m
+[32m+[m[32m            {[m
+[32m+[m[41m               [m
+[32m+[m[32m                while(temp.left!=null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    temp=temp.left;[m
+[32m+[m[32m                    s.push(temp);[m
+[32m+[m[41m                    [m
+[32m+[m[32m                }[m
+[32m+[m[32m                temp=s.pop();[m
+[32m+[m[32m                System.out.print(temp.data+ " ");[m
+[32m+[m[32m                a[count]=temp.data;[m
+[32m+[m[32m                count++;[m
+[32m+[m[41m                [m
+[32m+[m[32m                if(temp.right!=null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    temp=temp.right;[m
+[32m+[m[32m                    s.push(temp);[m
+[32m+[m[41m                    [m
+[32m+[m[41m                    [m
+[32m+[m[32m                }[m
+[32m+[m[41m                [m
+[32m+[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[41m        [m
+[32m+[m[32m    }[m
+[32m+[m[32m    public void predecsucc(int key)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        for(int i=0;i<a.length;i++)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            if(a[i]==key)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                if(i-1<0||a[i]==0)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    System.out.println("No predecessor or no successor");[m
+[32m+[m[32m                }[m
+[32m+[m[32m                else[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    System.out.println("predecessor:"+a[i-1]);[m
+[32m+[m[32m                }[m
+[32m+[m[41m                [m
+[32m+[m[32m                System.out.println("successor:"+a[i+1]);[m
+[32m+[m[32m                break;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public static void main(String args[])[m
+[32m+[m[32m    {[m
+[32m+[m[32m        inordersuccpress i=new inordersuccpress();[m
+[32m+[m[32m        root=new Node(10);[m
+[32m+[m[32m        root.left=new Node(8);[m
+[32m+[m[32m        root.left.left=new Node(7);[m
+[32m+[m[32m        root.left.right=new Node(9);[m
+[32m+[m[32m        root.right=new Node(11);[m
+[32m+[m[32m        root.right.right=new Node(12);[m
+[32m+[m[32m        i.inorder(root);[m
+[32m+[m[32m        i.predecsucc(7);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m

@@ -1,5 +1,5 @@
-import java.util.LinkedList;
-import java.util.Queue;
+
+import java.util.*;
 
 
 public class binarysearchtree {
@@ -169,8 +169,40 @@ public class binarysearchtree {
         System.out.println("Maximum in  tree is"+max);
         System.out.println("Minimum in tree is"+min);
     }
-   
-   public void findarray(Node root)
+    public void inorder(Node root)
+    {
+        if(root==null)
+        return; 
+        else
+        {
+            inorder(root.left);
+            System.out.print(root.data+" ");
+            inorder(root.right);
+        }
+    }
+    public void preorder(Node root)
+    {
+        if(root==null)
+        return;
+        else
+        {
+            System.out.print(root.data+" ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+    public void postorder(Node root)
+    {
+        if(root==null)
+        return;
+        else
+        {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data+" ");
+        }
+    }
+    public void findarray(Node root)
    {
        if(root==null)
        return;
@@ -193,11 +225,60 @@ public class binarysearchtree {
         findallpaths(root.right,arr,index+1);
        
     }
+    
+    public boolean isbst(Node root)
+    {
+        if(root==null)
+       return false;
+        else
+        {
+            Stack<Node> s=new Stack<Node>();
+            s.push(root);
+            Node temp=root;
+            while(s.isEmpty()==false)
+            {
+                if(temp.left==null&&temp.right==null)
+                break;
+                else if(temp.left!=null&&temp.right==null)
+                {
+                    if(temp.data>temp.left.data)
+                    {
+                        temp=temp.left;
+                    }
+                    else
+                    {
+                        return false;
+                        
+                    }
+                }
+                else if(temp.right!=null&&temp.left==null)
+                {
+                    if(temp.right.data>temp.data)
+                    {
+                        temp=temp.right;
+                    }
+                    else
+                    return false;
+                }
+                else if(temp.right!=null&temp.left!=null)
+                {
+                    if(temp.right.data>temp.data&&temp.left.data<temp.data)
+                    {
+                        s.push(temp.right);
+                        temp=temp.left;
+                    }
+                    else
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
     public static void main(String args[])
     {
         binarysearchtree bs=new binarysearchtree();
         root=new Node(100);
-        root.left=new Node(20);
+        root.left=new Node(200);
         root.right=new Node(500);
         bs.insert(root,1);
         bs.insert(root,0);
@@ -209,6 +290,13 @@ public class binarysearchtree {
         bs.levelordertraversal(root);
         bs.minimummaximum(root);
         System.out.println();
+        bs.postorder(root);
+        System.out.println();
+        bs.preorder(root);
+        System.out.println();
+        bs.inorder(root);
+        System.out.println(bs.isbst(root));
+        
         
     }
 }
