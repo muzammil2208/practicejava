@@ -78,6 +78,7 @@ public class heap {
         root.right.left = new Node(15);
         root.right.right = new Node(8);
         h.insert(20);
+        h.insert(200);
         h.levelordertraversal(root);
     }
     
